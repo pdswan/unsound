@@ -8,3 +8,7 @@ group :test do
   gem "pry"
   gem "pry-byebug"
 end
+
+group :development do
+  gem "yard"
+end

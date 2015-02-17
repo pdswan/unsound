@@ -11,6 +11,12 @@ RSpec.describe Unsound::Data::Either do
     ]
   end
 
+  it "has an abstract base class" do
+    expect {
+      Unsound::Data::Either.new("anything")
+    }.to raise_error(NotImplementedError)
+  end
+
   it_behaves_like "a Functor"
 
   it_behaves_like "a Monad" do
