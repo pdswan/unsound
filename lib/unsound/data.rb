@@ -40,8 +40,8 @@ module Unsound
 
       # Call a function on the value in the Data::Left
       #
-      # @param f [Proc] a function capable of processing the value
-      # @param _ [Proc] a function that will never be called
+      # @param f [#call] a function capable of processing the value
+      # @param _ [#call] a function that will never be called
       def either(f, _)
         f[value]
       end
@@ -67,8 +67,8 @@ module Unsound
 
       # Call a function on the value in the Data::Right
       #
-      # @param _ [Proc] a function that will never be called
-      # @param f [Proc] a function capable of processing the value
+      # @param _ [#call] a function that will never be called
+      # @param f [#call] a function capable of processing the value
       def either(_, f)
         f[value]
       end
