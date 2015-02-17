@@ -32,7 +32,7 @@ module Unsound
 
     class Right < Either
       def fmap(f)
-        of(f[value])
+        self >> Composition.compose(method(:of), f)
       end
 
       def >>(f)
