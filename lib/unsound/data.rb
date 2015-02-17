@@ -37,6 +37,14 @@ module Unsound
       def >>(_)
         self
       end
+
+      # Call a function on the value in the Data::Left
+      #
+      # @param f [Proc] a function capable of processing the value
+      # @param _ [Proc] a function that will never be called
+      def either(f, _)
+        f[value]
+      end
     end
 
     class Right < Either
@@ -54,6 +62,14 @@ module Unsound
       # @param f[#call] the next operation
       # @return [Data::Left, Data::Right]
       def >>(f)
+        f[value]
+      end
+
+      # Call a function on the value in the Data::Right
+      #
+      # @param _ [Proc] a function that will never be called
+      # @param f [Proc] a function capable of processing the value
+      def either(_, f)
         f[value]
       end
     end
