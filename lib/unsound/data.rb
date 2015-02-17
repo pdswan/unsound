@@ -8,7 +8,7 @@ module Unsound
       include AbstractType
       include Concord::Public.new(:value)
 
-      # Wraps a raw value in a Unsound::Data::Right
+      # Wraps a raw value in a {Data::Right}
       #
       # @param value [Any] the value to wrap
       # @return [Data::Right]
@@ -38,7 +38,7 @@ module Unsound
         self
       end
 
-      # Call a function on the value in the Data::Left
+      # Call a function on the value in the {Data::Left}
       #
       # @param f [#call] a function capable of processing the value
       # @param _ [#call] a function that will never be called
@@ -48,16 +48,16 @@ module Unsound
     end
 
     class Right < Either
-      # Apply a function to a value contained in a Data::Right
+      # Apply a function to a value contained in a {Data::Right}
       #
       # @param f [#call] the function to apply
       # @return [Data::Right] the result of applying the function
-      #   wrapped in a Data::Right
+      #   wrapped in a {Data::Right}
       def fmap(f)
         self >> Composition.compose(method(:of), f)
       end
 
-      # Chain another operation which can result in a Data::Either
+      # Chain another operation which can result in a {Data::Either}
       #
       # @param f[#call] the next operation
       # @return [Data::Left, Data::Right]
@@ -65,7 +65,7 @@ module Unsound
         f[value]
       end
 
-      # Call a function on the value in the Data::Right
+      # Call a function on the value in the {Data::Right}
       #
       # @param _ [#call] a function that will never be called
       # @param f [#call] a function capable of processing the value
