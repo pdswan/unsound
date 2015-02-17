@@ -1,48 +1,5 @@
-RSpec.shared_examples_for "a Functor" do
-  let(:id) { ->(x) { x } }
-  let(:dbl) { ->(x) { [x, x] } }
-  let(:compose) { Unsound::Composition.public_method(:compose) }
-
-  describe "fmap" do
-    specify do
-      instances.each do |instance|
-        expect(instance.fmap(id)).to eq(id[instance])
-      end
-    end
-
-    specify do
-      instances.each do |instance|
-        expect(
-          instance.fmap(dbl).fmap(dbl)
-        ).to eq(
-          instance.fmap(compose[dbl, dbl])
-        )
-      end
-    end
-  end
-end
-
-RSpec.shared_examples_for "a Monad" do
-  let(:f) { ->(x) { [x, x] } }
-
-  describe "left identity" do
-    specify do
-      expect(type.of(value) >> f).to eq(f[value])
-    end
-  end
-
-  describe "right identity" do
-    specify do
-      instances.each do |instance|
-        expect(instance >> type.public_method(:of)).to eq(instance)
-      end
-    end
-  end
-
-  describe "associativity" do
-    pending
-  end
-end
+require "unsound/shared/functor_examples"
+require "unsound/shared/monad_examples"
 
 RSpec.describe Unsound::Data::Either do
   let(:value) { double(:value) }
