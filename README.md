@@ -1,6 +1,12 @@
-# Unsound
+# Unsound [![Build Status](https://travis-ci.org/pdswan/unsound.svg?branch=master)](https://travis-ci.org/pdswan/unsound)
 
-TODO: Write a gem description
+Functional constructs inspired by [Haskell](https://www.haskell.org/), written in Ruby.
+
+Heavily influenced by [Kliesli](https://github.com/txus/kleisli), primariliy undertaken as an experiment motivated by:
+
+* fun
+* removing default globals
+* integrating `try` semantics with `Either`
 
 ## Installation
 
@@ -18,7 +24,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Check the specs.
 
 ## Contributing
 
