@@ -5,11 +5,14 @@ gemspec
 
 group :test do
   gem "rspec"
-  gem "pry"
-  gem "pry-byebug"
-  gem "pry-doc"
 end
 
 group :development do
   gem "yard"
+end
+
+group :debug do
+  gem "pry"
+  gem "pry-byebug"
+  gem "pry-doc"
 end
