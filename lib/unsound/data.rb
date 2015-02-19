@@ -17,6 +17,11 @@ module Unsound
       end
 
       abstract_method :fmap
+      abstract_method :>>
+
+      abstract_method :either
+      abstract_method :and_then
+      abstract_method :or_else
 
       private
 
@@ -27,15 +32,26 @@ module Unsound
 
     class Left < Either
       # A Noop
+      #
       # @return [Data::Left]
       def fmap(_)
         self
       end
 
       # A Noop
+      #
       # @return [Data::Left]
       def >>(_)
         self
+      end
+      alias :and_then :>>
+
+      # Chain another operation which can result in a {Data::Either}
+      #
+      # @param f[#call] the next operation
+      # @return [Data::Left, Data::Right]
+      def or_else(f = nil, &blk)
+        (f || blk)[value]
       end
 
       # Call a function on the value in the {Data::Left}
@@ -53,16 +69,24 @@ module Unsound
       # @param f [#call] the function to apply
       # @return [Data::Right] the result of applying the function
       #   wrapped in a {Data::Right}
-      def fmap(f)
-        self >> Composition.compose(method(:of), f)
+      def fmap(f = nil, &blk)
+        self >> Composition.compose(method(:of), (f || blk))
       end
 
       # Chain another operation which can result in a {Data::Either}
       #
       # @param f[#call] the next operation
       # @return [Data::Left, Data::Right]
-      def >>(f)
-        f[value]
+      def >>(f = nil, &blk)
+        (f || blk)[value]
+      end
+      alias :and_then :>>
+
+      # A Noop
+      #
+      # @return [Data::Right]
+      def or_else(_)
+        self
       end
 
       # Call a function on the value in the {Data::Right}

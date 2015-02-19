@@ -25,6 +25,31 @@ RSpec.describe Unsound::Data::Either do
     specify { expect(type.of(value)).to eq(Unsound::Data::Right.new(value)) }
   end
 
+  describe "#or_else" do
+    let(:or_else) do
+      ->(error) { Unsound::Data::Left.new(or_else_result) }
+    end
+    let(:or_else_result) { double(:or_else_result) }
+
+    context "a right" do
+      let(:right) { Unsound::Data::Right.new(value) }
+      let(:value) { double(:value) }
+
+      it "is a noop returning self" do
+        expect(right.or_else(or_else)).to eq(right)
+      end
+    end
+
+    context "a left" do
+      let(:left) { Unsound::Data::Left.new(error) }
+      let(:error) { double(:error) }
+
+      it "applies the function over the error" do
+        expect(left.or_else(or_else)).to eq(or_else.call(error))
+      end
+    end
+  end
+
   describe "#either" do
     let(:left_fn) { double(:left_fn) }
     let(:right_fn) { double(:right_fn) }
