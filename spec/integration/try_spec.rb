@@ -1,4 +1,3 @@
-require "pry"
 require "unsound"
 
 RSpec.describe "Use cases" do
