@@ -34,14 +34,14 @@ module Unsound
       # A Noop
       #
       # @return [Data::Left]
-      def fmap(_)
+      def fmap(*)
         self
       end
 
       # A Noop
       #
       # @return [Data::Left]
-      def >>(_)
+      def >>(*)
         self
       end
       alias :and_then :>>
@@ -85,7 +85,7 @@ module Unsound
       # A Noop
       #
       # @return [Data::Right]
-      def or_else(_)
+      def or_else(*)
         self
       end
 

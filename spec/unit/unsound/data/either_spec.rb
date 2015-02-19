@@ -1,5 +1,7 @@
-require "unsound/shared/functor_examples"
-require "unsound/shared/monad_examples"
+require "shared/functor_examples"
+require "shared/monad_examples"
+
+require "unsound"
 
 RSpec.describe Unsound::Data::Either do
   let(:value) { double(:value) }
