@@ -17,7 +17,9 @@ RSpec.describe "Use cases" do
     expect(
       Unsound::Control.try do
         repo.fetch(:alice)
-      end.fmap(&:name).fmap(&:upcase)
+      end.
+      fmap(&:name).
+      fmap(&:upcase)
     ).to eq(Unsound::Data::Right.new("ALICE"))
   end
 
@@ -26,7 +28,9 @@ RSpec.describe "Use cases" do
       it "allows graceful error handling" do
         Unsound::Control.try do
           repo.fetch(:does_not_exist)
-        end.fmap(&:name).fmap(&:upcase).either(
+        end.
+        fmap(&:name).
+        fmap(&:upcase).either(
           ->(error) { expect(error).to be_kind_of(KeyError) },
           ->(_) { raise "Can't get here" }
         )
