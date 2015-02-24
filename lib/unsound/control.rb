@@ -10,9 +10,13 @@ module Unsound
     # @return [Data::Right, Data::Left] an instance of
     #   a {Data::Right} or {Data::Left} to indicate success or failure.
     def try(&block)
-      Data::Right.new(block.call)
-    rescue
-      Data::Left.new($!)
+      Functions::Lazy.new do |*args|
+        begin
+          Data::Right.new(block.call(*args))
+        rescue
+          Data::Left.new($!)
+        end
+      end
     end
   end
 end

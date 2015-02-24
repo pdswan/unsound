@@ -43,9 +43,7 @@ RSpec.describe "Use cases" do
           repo.fetch(:voldemort)
         end.
         fmap(&:name).
-        # TODO - this is verbose because try eagerly evaluates
-        # is there a good way to make this more terse?
-        and_then { |value| Unsound::Control.try { value.upcase } }.
+        and_then(Unsound::Control.try(&:upcase)).
         either(
           ->(error) { expect(error).to be_kind_of(NoMethodError) },
           ->(_) { raise "Can't get here" }

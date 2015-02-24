@@ -1,17 +1,17 @@
 module Unsound
   module Functions
     class Lazy
-      [:==, :"!=", :equal?].each do |method|
+      [:==, :"!=", :equal?, :is_a?, :kind_of?, :inspect, :to_s].each do |method|
         undef_method method
       end
 
-      def initialize(fn, *curried_args)
-        @fn = fn
+      def initialize(*curried_args, &blk)
+        @fn = blk || curried_args.pop
         @curried_args = curried_args
       end
 
       def curry(*args)
-        self.class.new(fn, *(curried_args + args))
+        self.class.new(*(curried_args + args), fn)
       end
       alias :[] :curry
       alias :call :curry
