@@ -5,13 +5,13 @@ module Unsound
         undef_method method
       end
 
-      def initialize(*curried_args, &blk)
+      def initialize(*args, &blk)
+        @curried_args = args.dup
         @fn = blk || curried_args.pop
-        @curried_args = curried_args
       end
 
       def curry(*args)
-        self.class.new(*(curried_args + args), fn)
+        Lazy.new(*(curried_args + args), fn)
       end
       alias :[] :curry
       alias :call :curry
