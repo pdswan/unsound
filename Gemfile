@@ -16,3 +16,12 @@ group :debug do
   gem "pry-byebug"
   gem "pry-doc"
 end
+
+group :metrics do
+  gem "rubocop", require: false
+
+  platform :mri do
+    gem "mutant"
+    gem "mutant-rspec"
+  end
+end

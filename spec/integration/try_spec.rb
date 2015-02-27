@@ -2,7 +2,7 @@ require "unsound"
 
 RSpec.describe "Use cases" do
   let(:repo) do
-    users.inject({ }) do |users, user|
+    users.inject({}) do |users, user|
       users.merge(user.id => user)
     end
   end
@@ -28,7 +28,7 @@ RSpec.describe "Use cases" do
           repo.fetch(:does_not_exist)
         end.fmap(&:name).fmap(&:upcase).either(
           ->(error) { expect(error).to be_kind_of(KeyError) },
-          ->(_) { raise "Can't get here" }
+          ->(_) { fail "Can't get here" }
         )
       end
     end
@@ -38,14 +38,14 @@ RSpec.describe "Use cases" do
         Unsound::Control.try do
           repo.fetch(:voldemort)
         end.
-        fmap(&:name).
-        # TODO - this is verbose because try eagerly evaluates
-        # is there a good way to make this more terse?
-        and_then { |value| Unsound::Control.try { value.upcase } }.
-        either(
-          ->(error) { expect(error).to be_kind_of(NoMethodError) },
-          ->(_) { raise "Can't get here" }
-        )
+          fmap(&:name).
+          # TODO: this is verbose because try eagerly evaluates
+          # is there a good way to make this more terse?
+          and_then { |value| Unsound::Control.try { value.upcase } }.
+          either(
+            ->(error) { expect(error).to be_kind_of(NoMethodError) },
+            ->(_) { fail "Can't get here" }
+          )
       end
     end
   end

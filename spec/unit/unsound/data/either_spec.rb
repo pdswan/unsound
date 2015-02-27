@@ -29,7 +29,7 @@ RSpec.describe Unsound::Data::Either do
 
   describe "#or_else" do
     let(:or_else) do
-      ->(error) { Unsound::Data::Left.new(or_else_result) }
+      ->(_error) { Unsound::Data::Left.new(or_else_result) }
     end
     let(:or_else_result) { double(:or_else_result) }
 

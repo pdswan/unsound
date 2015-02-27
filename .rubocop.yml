@@ -1,0 +1,43 @@
+inherit_from: .rubocop_todo.yml
+
+Style/Alias:
+  Enabled: false
+
+Style/DotPosition:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/Blocks:
+  Exclude:
+    - 'spec/**/*'
+
+Style/MultilineBlockChain:
+  Exclude:
+    - 'spec/**/*'
+
+Style/RegexpLiteral:
+  MaxSlashes: 0
+  Exclude:
+    - '*.gemspec'
+
+Metrics/LineLength:
+  Max: 96
+  Exclude:
+    - '*.gemspec'
+
+Style/OpMethod:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/UnneededPercentQ:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - 'bin/**/*'
+    - 'vendor/**/*'
+

@@ -1,3 +1,5 @@
+require "english"
+
 module Unsound
   module Control
     module_function
@@ -12,7 +14,7 @@ module Unsound
     def try(&block)
       Data::Right.new(block.call)
     rescue
-      Data::Left.new($!)
+      Data::Left.new($ERROR_INFO)
     end
   end
 end

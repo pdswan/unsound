@@ -15,7 +15,7 @@ RSpec.describe Unsound::Control do
     end
 
     context "the block raises an exception" do
-      let(:blk) { -> { raise error } }
+      let(:blk) { -> { fail error } }
       let(:error) { StandardError.new("Something went wrong") }
 
       it "returns the exception wrapped in a Left" do

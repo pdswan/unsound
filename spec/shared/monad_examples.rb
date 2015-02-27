@@ -19,11 +19,11 @@ RSpec.shared_examples_for "a Monad" do
     specify do
       instances.each do |instance|
         expect(
-          instance >> ->(a) {
-            f[a] >> ->(b) {
+          instance >> lambda do |a|
+            f[a] >> lambda do |b|
               f[b]
-            }
-          }
+            end
+          end
         ).to eq(instance >> f >> f)
       end
     end

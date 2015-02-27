@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = Unsound::VERSION
   spec.authors       = ["Peter Swan"]
   spec.email         = ["pdswan@gmail.com"]
-  spec.summary       = %q{General functional concepts inspired by Haskell, implemented in Ruby.}
+  spec.summary       = %q(General functional concepts inspired by Haskell, implemented in Ruby.)
   spec.homepage      = "https://github.com/pdswan/unsound"
   spec.license       = "MIT"
 
