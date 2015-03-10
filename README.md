@@ -1,4 +1,4 @@
-# Unsound [![Build Status](https://travis-ci.org/pdswan/unsound.svg?branch=master)](https://travis-ci.org/pdswan/unsound)
+# Unsound [![Build Status](https://travis-ci.org/pdswan/unsound.svg?branch=master)](https://travis-ci.org/pdswan/unsound) [![Inline docs](http://inch-ci.org/github/pdswan/unsound.svg?branch=master)](http://inch-ci.org/github/pdswan/unsound)
 
 Functional constructs inspired by [Haskell](https://www.haskell.org/), written in Ruby.
 
