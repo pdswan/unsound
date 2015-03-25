@@ -24,4 +24,26 @@ RSpec.describe Unsound::Control do
       end
     end
   end
+
+  describe Unsound::Control, ".maybe" do
+    subject(:run_maybe) { Unsound::Control.maybe(&blk) }
+
+    context "the block returns nil" do
+      let(:blk) { -> { nil } }
+
+      it "returns Nothing" do
+        expect(run_maybe).to be_a(Unsound::Data::Nothing)
+      end
+    end
+
+    context "the block does not return nil" do
+      let(:blk) { -> { result } }
+      let(:result) { double(:result) }
+
+      it "returns a Just" do
+        expect(run_maybe).to be_a(Unsound::Data::Just)
+        expect(run_maybe.value).to eq(result)
+      end
+    end
+  end
 end
