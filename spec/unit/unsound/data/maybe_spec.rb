@@ -89,4 +89,31 @@ RSpec.describe Unsound::Data::Maybe do
       end
     end
   end
+
+  describe "#maybe" do
+    let(:just_fn) { double(:just_fn) }
+    let(:nothing_fn) { double(:nothing_fn) }
+
+    let(:just_result) { double(:just_result) }
+    let(:nothing_result) { double(:nothing_result) }
+
+    context "a just" do
+      let(:just) { Unsound::Data::Just.new(value) }
+
+      it "calls the just function with the value" do
+        allow(just_fn).to receive(:[]).
+          with(value).and_return(just_result)
+        expect(just.maybe(just_fn, nothing_fn)).to eq(just_result)
+      end
+    end
+
+    context "a nothing" do
+      let(:nothing) { Unsound::Data::Nothing.new }
+
+      it "calls the nothing function" do
+        allow(nothing_fn).to receive(:[]).and_return(nothing_result)
+        expect(nothing.maybe(just_fn, nothing_fn)).to eq(nothing_result)
+      end
+    end
+  end
 end
