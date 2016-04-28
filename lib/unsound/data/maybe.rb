@@ -18,6 +18,7 @@ module Unsound
       abstract_method :fmap
       abstract_method :>>
 
+      abstract_method :maybe
       abstract_method :and_then
       abstract_method :or_else
 
@@ -53,6 +54,14 @@ module Unsound
       def or_else(f = nil, &blk)
         (f || blk).call
       end
+
+      # Call the specified function with no arguments
+      #
+      # @param _ [#call] a function that will never be called
+      # @param f [#call] a function that takes no arguments
+      def maybe(_, f)
+        f[]
+      end
     end
 
     class Just < Maybe
@@ -81,6 +90,14 @@ module Unsound
       # @return [Data::Just]
       def or_else(*)
         self
+      end
+
+      # Call a function on the value in the {Data::Just}
+      #
+      # @param f [#call] a function capable of processing the value
+      # @param _ [#call] a function that will never be called
+      def maybe(f, _)
+        f[value]
       end
     end
   end
