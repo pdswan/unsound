@@ -17,6 +17,15 @@ module Unsound
       Data::Left.new($ERROR_INFO)
     end
 
+
+    # Like .try, but wraps the block in a Proc for lazy execution
+    # @param block [Block] the block to execute
+    # @return [Proc] a proc which will execute the supplied block using .try
+    #   when executed.
+    def wrap_with_try(&block)
+      ->(*args) { try { block.call(*args) } }
+    end
+
     # Execute the block. If the block
     # results in Nil, return {Data::Nothing},
     # otherwise wrap the result in a {Data::Just}
@@ -29,6 +38,14 @@ module Unsound
       else
         Data::Just.new(result)
       end
+    end
+
+    # Like .maybe, but wraps the block in a Proc for lazy execution
+    # @param block [Block] the block to execute
+    # @return [Proc] a proc which will execute the supplied block using .maybe
+    #   when executed.
+    def wrap_with_maybe(&block)
+      ->(*args) { maybe{ block.call(*args) } }
     end
   end
 end
